@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -20,7 +20,74 @@
 }
 
 body {
-  background: var(--background);
+  background: #000;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Animaciones personalizadas */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-in-delay {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-in-delay-2 {
+  0% { opacity: 0; }
+  70% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-in-delay-3 {
+  0% { opacity: 0; }
+  85% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.8); }
+  80% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes float-card {
+  0% { transform: translateY(0px) scale(1.01); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25); }
+  50% { transform: translateY(-16px) scale(1.03); box-shadow: 0 16px 48px 0 rgba(0,0,0,0.32); }
+  100% { transform: translateY(0px) scale(1.01); box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25); }
+}
+@keyframes button-glow {
+  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
+  70% { box-shadow: 0 0 24px 8px rgba(255,255,255,0.7); }
+  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.5); }
+}
+
+.animate-fade-in { animation: fade-in 1s both; }
+.animate-fade-in-delay { animation: fade-in-delay 1.5s both; }
+.animate-fade-in-delay-2 { animation: fade-in-delay-2 2s both; }
+.animate-fade-in-delay-3 { animation: fade-in-delay-3 2.5s both; }
+.animate-slide-down { animation: slide-down 1s both; }
+.animate-slide-up { animation: slide-up 1s both; }
+.animate-pop-in { animation: pop-in 1.2s both; }
+.floating-card {
+  animation: float-card 4s ease-in-out infinite;
+}
+.creative-btn {
+  transition: transform 0.2s cubic-bezier(.4,2,.6,1), box-shadow 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.creative-btn:hover {
+  transform: scale(1.07) rotate(-2deg);
+  animation: button-glow 0.7s;
+  box-shadow: 0 0 32px 8px rgba(255,255,255,0.7), 0 2px 8px 0 rgba(0,0,0,0.18);
+  background: linear-gradient(90deg, #fff 60%, #e0e7ff 100%);
+  color: #111;
 }
