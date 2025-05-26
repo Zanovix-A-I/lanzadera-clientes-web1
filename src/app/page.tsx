@@ -32,7 +32,7 @@ export default function Home() {
         <h1 className="text-4xl sm:text-6xl font-bold text-white mb-2 animate-slide-down">Lanzadera de clientes</h1>
         <h2 className="text-lg sm:text-2xl text-gray-300 mb-6 animate-slide-up">Por Patricio Wamba</h2>
         <p className="text-base sm:text-lg text-gray-200 max-w-xl mb-8 animate-fade-in-delay">
-          Estas a un paso de poder llegar a mi facturación mensual con tu agencia desde ahora a las próximas semanas.
+          Aprende inteligencia artificial conmigo.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <button
