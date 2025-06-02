@@ -47,6 +47,13 @@ export default function Home() {
           >
             Contactar
           </button>
+          <a
+            href="/formaciones"
+            className="creative-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg transition-all animate-pop-in text-center"
+            style={{ display: 'inline-block', lineHeight: '2.25rem' }}
+          >
+            Ver formaciones
+          </a>
         </div>
       </section>
       {/* Sección 2: Sobre mí */}
