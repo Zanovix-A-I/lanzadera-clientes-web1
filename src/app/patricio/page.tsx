@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Cal, { getCalApi } from "@calcom/embed-react";
+// import Cal, { getCalApi } from "@calcom/embed-react"; // Remove Cal.com import
 
 export default function PatricioPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -10,10 +10,10 @@ export default function PatricioPage() {
   const [videoState, setVideoState] = useState<'muted_autoplay' | 'playing' | 'paused'>('muted_autoplay');
 
   useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
-    })();
+    // (async function () {
+    //   const cal = await getCalApi({ namespace: "30min" });
+    //   cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+    // })(); // Remove Cal.com initialization
 
     // Autoplay muted video on mount
     if (videoRef.current) {
@@ -23,6 +23,18 @@ export default function PatricioPage() {
         if (videoRef.current) videoRef.current.muted = true;
       });
     }
+
+    // Add Calendly script dynamically
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Clean up script on unmount if necessary, though Calendly script is often left.
+      // document.body.removeChild(script);
+    };
 
   }, []);
 
@@ -119,14 +131,12 @@ export default function PatricioPage() {
         <p className="text-base sm:text-lg text-gray-200 animate-fade-in text-center mb-6">
           Reserva una llamada directamente en mi calendario para que hablemos de tu agencia de IA.
         </p>
-        <div className="w-full h-[600px] max-w-2xl rounded-xl overflow-hidden border border-white/10 bg-black/70">
-          <Cal
-            namespace="30min"
-            calLink="patriciowamba/30min"
-            style={{ width: "100%", height: "100%", overflow: "scroll" }}
-            config={{ layout: "month_view" }}
-          />
-        </div>
+        {/* Calendly Widget */} 
+        <div 
+          className="calendly-inline-widget w-full rounded-xl overflow-hidden" 
+          data-url="https://calendly.com/patriciow93/reunion-con-patricio" 
+          style={{ minWidth: "320px", height: "700px" }}
+        ></div>
       </div>
 
       {/* Footer (opcional, si quieres que se repita el de la landing) */}
