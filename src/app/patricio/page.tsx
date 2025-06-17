@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 // import Cal, { getCalApi } from "@calcom/embed-react"; // Remove Cal.com import
+import AnimatedParticlesBackground from "../AnimatedParticlesBackground";
 
 export default function PatricioPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -8,6 +9,7 @@ export default function PatricioPage() {
   // 'playing': video is unmuted and playing
   // 'paused': video is unmuted and paused
   const [videoState, setVideoState] = useState<'muted_autoplay' | 'playing' | 'paused'>('muted_autoplay');
+  const [isCalendlyFocused, setIsCalendlyFocused] = useState(false);
 
   useEffect(() => {
     // (async function () {
@@ -68,8 +70,45 @@ export default function PatricioPage() {
     }
   };
 
+  // Adelantar 10 segundos
+  const handleForward10 = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = Math.min(
+        videoRef.current.duration,
+        videoRef.current.currentTime + 10
+      );
+    }
+  };
+
+  // Retroceder 10 segundos
+  const handleBackward10 = () => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = Math.max(
+        0,
+        videoRef.current.currentTime - 10
+      );
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!videoRef.current) return;
+      if (videoState === 'muted_autoplay') return;
+      if (e.key === 'ArrowRight') {
+        handleForward10();
+      } else if (e.key === 'ArrowLeft') {
+        handleBackward10();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [videoState]);
+
   return (
     <div className="relative min-h-screen flex flex-col items-center py-16 px-4 bg-black text-white overflow-x-hidden">
+      <AnimatedParticlesBackground />
       {/* Título de la VSL */}
       <h1 className="text-3xl sm:text-5xl font-bold text-center mb-12 animate-slide-down max-w-4xl">
         ¿Te gustaría poder estar viviendo de tu Agencia de IA de aquí a unos meses?
@@ -110,23 +149,41 @@ export default function PatricioPage() {
           </div>
         )}
 
-        {/* Rewind Button (visible after unmute) */}
+        {/* Botones de adelantar/retroceder (derecha) */}
         {videoState !== 'muted_autoplay' && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent play/pause toggle
-              handleRewind();
-            }}
-            className="absolute bottom-4 left-4 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50"
-            aria-label="Reiniciar video"
-          >
-            🔄
-          </button>
+          <div className="absolute bottom-4 right-4 flex items-center gap-2">
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                handleBackward10();
+              }}
+              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 text-xs"
+              aria-label="Retroceder 10 segundos"
+              style={{ fontSize: '1.2rem' }}
+            >⏪ 10s</button>
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                handleForward10();
+              }}
+              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 text-xs"
+              aria-label="Adelantar 10 segundos"
+              style={{ fontSize: '1.2rem' }}
+            >10s ⏩</button>
+          </div>
         )}
       </div>
 
       {/* Embed de Calendly */}
-      <div className="backdrop-blur-md bg-black/60 border border-white/10 rounded-2xl shadow-2xl p-8 sm:p-12 max-w-2xl w-full flex flex-col items-center floating-card mb-16">
+      <div
+        className={`backdrop-blur-md bg-black/60 border border-white/10 rounded-2xl shadow-2xl p-8 sm:p-12 w-full flex flex-col items-center mb-16 transition-all duration-300 ${isCalendlyFocused ? '' : 'floating-card'} max-w-2xl sm:max-w-3xl lg:max-w-4xl`}
+        style={{ minHeight: 900 }}
+        onMouseEnter={() => setIsCalendlyFocused(true)}
+        onMouseLeave={() => setIsCalendlyFocused(false)}
+        onFocus={() => setIsCalendlyFocused(true)}
+        onBlur={() => setIsCalendlyFocused(false)}
+        tabIndex={0}
+      >
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 animate-slide-down text-center">Agenda tu cita</h2>
         <p className="text-base sm:text-lg text-gray-200 animate-fade-in text-center mb-6">
           Reserva una llamada directamente en mi calendario para que hablemos de tu agencia de IA.
@@ -135,7 +192,7 @@ export default function PatricioPage() {
         <div 
           className="calendly-inline-widget w-full rounded-xl overflow-hidden" 
           data-url="https://calendly.com/patriciow93/reunion-con-patricio" 
-          style={{ minWidth: "320px", height: "700px" }}
+          style={{ minWidth: "320px", height: "820px" }}
         ></div>
       </div>
 
