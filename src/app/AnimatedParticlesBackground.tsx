@@ -9,7 +9,7 @@ export default function AnimatedParticlesBackground() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    let dpr = window.devicePixelRatio || 1;
+    const dpr = window.devicePixelRatio || 1;
     let width = window.innerWidth;
     let height = window.innerHeight;
     // Partículas

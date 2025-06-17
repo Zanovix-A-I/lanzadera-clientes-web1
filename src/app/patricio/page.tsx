@@ -60,16 +60,6 @@ export default function PatricioPage() {
     }
   };
 
-  const handleRewind = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0;
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setVideoState('playing');
-      }
-    }
-  };
-
   // Adelantar 10 segundos
   const handleForward10 = () => {
     if (videoRef.current) {
