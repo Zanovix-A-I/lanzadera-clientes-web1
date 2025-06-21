@@ -11,6 +11,8 @@ export default function PatricioPage() {
   const [videoState, setVideoState] = useState<'muted_autoplay' | 'playing' | 'paused'>('muted_autoplay');
   const [isCalendlyFocused, setIsCalendlyFocused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [loadCalendly, setLoadCalendly] = useState(false);
+  const calendlyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check for mobile screen size
@@ -34,6 +36,21 @@ export default function PatricioPage() {
       });
     }
 
+    // Lazy load Calendly
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadCalendly(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    if (calendlyRef.current) {
+      observer.observe(calendlyRef.current);
+    }
+
     // Add Calendly script dynamically
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -45,6 +62,7 @@ export default function PatricioPage() {
       // Clean up script on unmount if necessary, though Calendly script is often left.
       // document.body.removeChild(script);
       window.removeEventListener('resize', checkMobile);
+      observer.disconnect();
     };
 
   }, []);
@@ -109,19 +127,20 @@ export default function PatricioPage() {
     <div className="relative min-h-screen flex flex-col items-center py-16 px-4 bg-black text-white overflow-x-hidden">
       {!isMobile && <AnimatedParticlesBackground />}
       {/* Título de la VSL */}
-      <h1 className="text-3xl sm:text-5xl font-bold text-center mb-12 animate-slide-down max-w-4xl">
+      <h1 className={`text-3xl sm:text-5xl font-bold text-center mb-12 max-w-4xl ${!isMobile ? 'animate-slide-down' : ''}`}>
         ¿Te gustaría poder estar viviendo de tu Agencia de IA de aquí a unos meses?
       </h1>
 
       {/* Video VSL */}
       <div
-        className="relative w-full max-w-4xl mb-16 rounded-xl overflow-hidden shadow-2xl animate-fade-in-delay-2 group cursor-pointer"
+        className={`relative w-full max-w-4xl mb-16 rounded-xl overflow-hidden shadow-2xl group cursor-pointer ${!isMobile ? 'animate-fade-in-delay-2' : ''}`}
         onClick={handleVideoAreaClick}
       >
         <video
           ref={videoRef}
           src="/vsl.mp4"
           poster="/poster.jpg"
+          preload="metadata"
           // controls // Removed default controls
           autoPlay
           loop
@@ -176,28 +195,35 @@ export default function PatricioPage() {
 
       {/* Embed de Calendly */}
       <div
-        className={`backdrop-blur-md bg-black/60 border border-white/10 rounded-2xl shadow-2xl p-8 sm:p-12 w-full flex flex-col items-center mb-16 transition-all duration-300 ${isCalendlyFocused ? '' : 'floating-card'} max-w-2xl sm:max-w-3xl lg:max-w-4xl`}
-        style={{ minHeight: 900 }}
+        ref={calendlyRef}
+        className={`border border-white/10 rounded-2xl shadow-2xl p-8 sm:p-12 w-full flex flex-col items-center mb-16 transition-all duration-300 max-w-2xl sm:max-w-3xl lg:max-w-4xl ${isMobile ? 'bg-black/80' : 'backdrop-blur-md bg-black/60'} ${isCalendlyFocused || isMobile ? '' : 'floating-card'}`}
+        style={{ minHeight: isMobile ? 'auto' : 900 }}
         onMouseEnter={() => setIsCalendlyFocused(true)}
         onMouseLeave={() => setIsCalendlyFocused(false)}
         onFocus={() => setIsCalendlyFocused(true)}
         onBlur={() => setIsCalendlyFocused(false)}
         tabIndex={0}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 animate-slide-down text-center">Agenda tu cita</h2>
-        <p className="text-base sm:text-lg text-gray-200 animate-fade-in text-center mb-6">
+        <h2 className={`text-2xl sm:text-3xl font-bold text-white mb-6 text-center ${!isMobile ? 'animate-slide-down' : ''}`}>Agenda tu cita</h2>
+        <p className={`text-base sm:text-lg text-gray-200 text-center mb-6 ${!isMobile ? 'animate-fade-in' : ''}`}>
           Reserva una llamada directamente en mi calendario para que hablemos de tu agencia de IA.
         </p>
-        {/* Calendly Widget */} 
-        <div 
-          className="calendly-inline-widget w-full rounded-xl overflow-hidden" 
-          data-url="https://calendly.com/patriciow93/reunion-con-patricio" 
-          style={{ minWidth: "320px", height: "820px" }}
-        ></div>
+        {/* Calendly Widget */}
+        {loadCalendly ? (
+          <div
+            className="calendly-inline-widget w-full rounded-xl overflow-hidden"
+            data-url="https://calendly.com/patriciow93/reunion-con-patricio"
+            style={{ minWidth: "320px", height: "820px" }}
+          ></div>
+        ) : (
+          <div style={{ height: '820px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <p className="text-gray-400">Cargando calendario...</p>
+          </div>
+        )}
       </div>
 
-      {/* Footer (opcional, si quieres que se repita el de la landing) */}
-      <footer className="w-full text-center py-8 text-gray-500 text-sm">
+      {/* Footer */}
+      <footer className={`w-full text-center py-8 text-gray-500 text-sm ${!isMobile ? 'animate-fade-in-delay-3' : ''}`}>
         <span>Copyright 2025 - LanzaderaClientes.ES - Todos los derechos reservados</span>
         <span className="mx-2">|</span>
         <span>Desarrollado por <a href="https://zanovix.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition">zanovix.com</a></span>
