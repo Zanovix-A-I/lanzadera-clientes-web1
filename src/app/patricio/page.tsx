@@ -10,8 +10,16 @@ export default function PatricioPage() {
   // 'paused': video is unmuted and paused
   const [videoState, setVideoState] = useState<'muted_autoplay' | 'playing' | 'paused'>('muted_autoplay');
   const [isCalendlyFocused, setIsCalendlyFocused] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check for mobile screen size
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     // (async function () {
     //   const cal = await getCalApi({ namespace: "30min" });
     //   cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
@@ -36,6 +44,7 @@ export default function PatricioPage() {
     return () => {
       // Clean up script on unmount if necessary, though Calendly script is often left.
       // document.body.removeChild(script);
+      window.removeEventListener('resize', checkMobile);
     };
 
   }, []);
@@ -98,7 +107,7 @@ export default function PatricioPage() {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center py-16 px-4 bg-black text-white overflow-x-hidden">
-      <AnimatedParticlesBackground />
+      {!isMobile && <AnimatedParticlesBackground />}
       {/* Título de la VSL */}
       <h1 className="text-3xl sm:text-5xl font-bold text-center mb-12 animate-slide-down max-w-4xl">
         ¿Te gustaría poder estar viviendo de tu Agencia de IA de aquí a unos meses?
@@ -111,7 +120,8 @@ export default function PatricioPage() {
       >
         <video
           ref={videoRef}
-          src="/VSL.mov"
+          src="/vsl.mp4"
+          poster="/poster.jpg"
           // controls // Removed default controls
           autoPlay
           loop

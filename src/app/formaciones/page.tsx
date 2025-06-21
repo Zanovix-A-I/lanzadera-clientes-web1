@@ -35,7 +35,7 @@ const formaciones = [
       "Acceso directo a personal experto en IA.",
       "Acceso completo a toda la formación necesaria, incluyendo: Fiscalidad, ventas, fundamentos de una agencia, prospección, métricas de prospección en línea y formación en herramientas de Inteligencia Artificial.",
       "6 de sesiones 1 a 1:",
-      "Una llamada de control todas las semanas (durante 6 meses)",
+      "Una llamada de control todas las semanas (durante 5 meses)",
       "Contacto directo por Whatsapp con Patricio para resolver dudas."
     ]
   },
@@ -54,7 +54,7 @@ const formaciones = [
       "Acceso directo a personal experto en IA.",
       "Acceso completo a toda la formación necesaria, incluyendo: Fiscalidad, ventas, fundamentos de una agencia, prospección, métricas de prospección en línea y formación en herramientas de Inteligencia Artificial.",
       "7 de sesiones 1 a 1:",
-      "Una llamada de control todas las semanas (durante 6 meses)",
+      "Una llamada de control todas las semanas (durante 12 meses)",
       "Contacto directo por Whatsapp con Patricio para resolver dudas."
     ]
   }

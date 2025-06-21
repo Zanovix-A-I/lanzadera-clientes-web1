@@ -13,7 +13,7 @@ export default function AnimatedParticlesBackground() {
     let width = window.innerWidth;
     let height = window.innerHeight;
     // Partículas
-    const PARTICLE_COUNT = 60;
+    const PARTICLE_COUNT = 40;
     const particles: {
       x: number;
       y: number;
