@@ -139,6 +139,12 @@ export default function FormacionesPage() {
           ))}
         </div>
       </div>
+      {/* Footer */}
+      <footer className="w-full text-center py-8 text-gray-500 text-sm mt-12">
+        <span>Copyright 2025 - LanzaderaClientes.ES - Todos los derechos reservados</span>
+        <span className="mx-2">|</span>
+        <span>Desarrollado por <a href="https://zanovix.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition">zanovix.com</a></span>
+      </footer>
     </div>
   );
 } 

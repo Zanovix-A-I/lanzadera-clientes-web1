@@ -197,8 +197,10 @@ export default function PatricioPage() {
       </div>
 
       {/* Footer (opcional, si quieres que se repita el de la landing) */}
-      <footer className="w-full text-center py-6 text-gray-400 text-sm animate-fade-in-delay-3">
-        Powered by <a href="https://zanovix.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition">Zanovix</a>
+      <footer className="w-full text-center py-8 text-gray-500 text-sm">
+        <span>Copyright 2025 - LanzaderaClientes.ES - Todos los derechos reservados</span>
+        <span className="mx-2">|</span>
+        <span>Desarrollado por <a href="https://zanovix.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition">zanovix.com</a></span>
       </footer>
     </div>
   );
