@@ -42,4 +42,5 @@ next-env.d.ts
 
 # archivos grandes
 
-/public/vsl.mp4
+/public/vslEscritorio.mp4
+/public/vslMovil.mp4

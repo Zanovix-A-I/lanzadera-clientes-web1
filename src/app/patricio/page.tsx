@@ -5,6 +5,7 @@ import AnimatedParticlesBackground from "../AnimatedParticlesBackground";
 
 export default function PatricioPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
   // 'muted_autoplay': initial state, video plays muted with overlay
   // 'playing': video is unmuted and playing
   // 'paused': video is unmuted and paused
@@ -87,6 +88,31 @@ export default function PatricioPage() {
     }
   };
 
+  const handleFullscreen = () => {
+    const videoContainer = videoContainerRef.current as any;
+    const doc = document as any;
+
+    if (!doc.fullscreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+      if (videoContainer) {
+        if (videoContainer.requestFullscreen) {
+          videoContainer.requestFullscreen();
+        } else if (videoContainer.webkitRequestFullscreen) { /* Safari */
+          videoContainer.webkitRequestFullscreen();
+        } else if (videoContainer.msRequestFullscreen) { /* IE11 */
+          videoContainer.msRequestFullscreen();
+        }
+      }
+    } else {
+      if (doc.exitFullscreen) {
+        doc.exitFullscreen();
+      } else if (doc.webkitExitFullscreen) { /* Safari */
+        doc.webkitExitFullscreen();
+      } else if (doc.msExitFullscreen) { /* IE11 */
+        doc.msExitFullscreen();
+      }
+    }
+  };
+
   // Adelantar 10 segundos
   const handleForward10 = () => {
     if (videoRef.current) {
@@ -133,12 +159,12 @@ export default function PatricioPage() {
 
       {/* Video VSL */}
       <div
+        ref={videoContainerRef}
         className={`relative w-full max-w-4xl mb-16 rounded-xl overflow-hidden shadow-2xl group cursor-pointer ${!isMobile ? 'animate-fade-in-delay-2' : ''}`}
         onClick={handleVideoAreaClick}
       >
         <video
           ref={videoRef}
-          src="/vsl.mp4"
           poster="/poster.jpg"
           preload="metadata"
           // controls // Removed default controls
@@ -147,7 +173,10 @@ export default function PatricioPage() {
           muted={videoState === 'muted_autoplay'}
           playsInline
           className="w-full h-auto"
-        />
+        >
+          <source src="/vslMovil.mp4" type="video/mp4" media="all and (max-width: 768px)" />
+          <source src="/vslEscritorio.mp4" type="video/mp4" />
+        </video>
 
         {/* Unmute Overlay (large) */}
         {videoState === 'muted_autoplay' && (
@@ -168,28 +197,48 @@ export default function PatricioPage() {
           </div>
         )}
 
-        {/* Botones de adelantar/retroceder (derecha) */}
+        {/* Botones de adelantar/retroceder (izquierda) */}
         {videoState !== 'muted_autoplay' && (
-          <div className="absolute bottom-4 right-4 flex items-center gap-2">
+          <div className="absolute bottom-4 left-4 flex items-center gap-2">
             <button
               onClick={e => {
                 e.stopPropagation();
                 handleBackward10();
               }}
-              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 text-xs"
+              className="bg-black/50 text-white p-1.5 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 text-2xs"
               aria-label="Retroceder 10 segundos"
-              style={{ fontSize: '1.2rem' }}
-            >⏪ 10s</button>
+              style={{ fontSize: '0.9rem' }}
+            >
+              ⏪ 10s
+            </button>
             <button
               onClick={e => {
                 e.stopPropagation();
                 handleForward10();
               }}
-              className="bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 text-xs"
+              className="bg-black/50 text-white p-1.5 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50 text-2xs"
               aria-label="Adelantar 10 segundos"
-              style={{ fontSize: '1.2rem' }}
-            >10s ⏩</button>
+              style={{ fontSize: '0.9rem' }}
+            >
+              10s ⏩
+            </button>
           </div>
+        )}
+        
+        {/* Botón de pantalla completa (derecha) */}
+        {videoState !== 'muted_autoplay' && (
+          <button
+            onClick={e => {
+              e.stopPropagation();
+              handleFullscreen();
+            }}
+            className="absolute bottom-4 right-4 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-all focus:outline-none focus:ring-2 focus:ring-white/50"
+            aria-label="Pantalla completa"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+          </button>
         )}
       </div>
 
