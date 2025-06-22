@@ -25,6 +25,7 @@ export default function PatricioPage() {
   const [isCalendlyFocused, setIsCalendlyFocused] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [loadCalendly, setLoadCalendly] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const calendlyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -71,11 +72,24 @@ export default function PatricioPage() {
     script.async = true;
     document.body.appendChild(script);
 
+    const doc = document as FullscreenableDocument;
+
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!(doc.fullscreenElement || doc.webkitFullscreenElement || doc.msFullscreenElement));
+    };
+    
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('msfullscreenchange', handleFullscreenChange);
+
     return () => {
       // Clean up script on unmount if necessary, though Calendly script is often left.
       // document.body.removeChild(script);
       window.removeEventListener('resize', checkMobile);
       observer.disconnect();
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('msfullscreenchange', handleFullscreenChange);
     };
 
   }, []);
@@ -172,7 +186,7 @@ export default function PatricioPage() {
       {/* Video VSL */}
       <div
         ref={videoContainerRef}
-        className={`relative w-full max-w-4xl mb-16 rounded-xl overflow-hidden shadow-2xl group cursor-pointer ${!isMobile ? 'animate-fade-in-delay-2' : ''}`}
+        className={`relative w-full max-w-4xl mb-16 rounded-xl overflow-hidden shadow-2xl group cursor-pointer ${!isMobile ? 'animate-fade-in-delay-2' : ''} ${isFullscreen ? 'video-container-fullscreen' : ''}`}
         onClick={handleVideoAreaClick}
       >
         <video
