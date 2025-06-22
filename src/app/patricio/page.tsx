@@ -3,6 +3,18 @@ import { useEffect, useRef, useState } from "react";
 // import Cal, { getCalApi } from "@calcom/embed-react"; // Remove Cal.com import
 import AnimatedParticlesBackground from "../AnimatedParticlesBackground";
 
+interface FullscreenableDiv extends HTMLDivElement {
+  webkitRequestFullscreen?: () => Promise<void>;
+  msRequestFullscreen?: () => Promise<void>;
+}
+
+interface FullscreenableDocument extends Document {
+  webkitFullscreenElement?: Element;
+  msFullscreenElement?: Element;
+  webkitExitFullscreen?: () => Promise<void>;
+  msExitFullscreen?: () => Promise<void>;
+}
+
 export default function PatricioPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
@@ -89,8 +101,8 @@ export default function PatricioPage() {
   };
 
   const handleFullscreen = () => {
-    const videoContainer = videoContainerRef.current as any;
-    const doc = document as any;
+    const videoContainer = videoContainerRef.current as FullscreenableDiv | null;
+    const doc = document as FullscreenableDocument;
 
     if (!doc.fullscreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
       if (videoContainer) {
