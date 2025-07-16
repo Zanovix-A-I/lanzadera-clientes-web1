@@ -34,18 +34,13 @@ export default function Home() {
           Aprende inteligencia artificial conmigo.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
-          <button
-            onClick={scrollToAbout}
-            className="creative-btn bg-white text-black font-semibold px-8 py-3 rounded-full shadow-lg transition-all animate-pop-in"
+          <a
+            href="/patricio"
+            className="creative-btn bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 hover:from-yellow-500 hover:to-pink-600 text-white font-extrabold text-xl px-10 py-5 rounded-full shadow-2xl transition-all animate-pop-in text-center border-4 border-white drop-shadow-lg"
+            style={{ display: 'inline-block', lineHeight: '2.75rem', fontSize: '1.5rem', letterSpacing: '0.05em' }}
           >
-            Saber más
-          </button>
-          <button
-            onClick={scrollToContact}
-            className="creative-btn bg-white text-black font-semibold px-8 py-3 rounded-full shadow-lg transition-all animate-pop-in"
-          >
-            Contactar
-          </button>
+            Comenzar una agencia de IA exitosa
+          </a>
           <a
             href="/formaciones"
             className="creative-btn bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full shadow-lg transition-all animate-pop-in text-center"
@@ -63,23 +58,6 @@ export default function Home() {
             Patricio Wamba es el fundador de una innovadora agencia de Inteligencia Artificial que está revolucionando el mercado.<br /><br />
             Con su visión y liderazgo, la agencia ha alcanzado una facturación mensual superior a los 10.000€, demostrando el poder y la rentabilidad de las soluciones de IA bien implementadas para escalar negocios.
           </p>
-        </div>
-      </section>
-      {/* Sección 3: Contacto */}
-      <section ref={contactRef} className="flex flex-col items-center justify-center min-h-[60vh] py-24 px-4 animate-fade-in-delay-2 gap-8" id="contacto">
-        <div className="backdrop-blur-md bg-black/60 border border-white/10 rounded-2xl shadow-2xl p-8 sm:p-12 max-w-2xl w-full flex flex-col items-center floating-card">
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 animate-slide-down">Contacto</h3>
-          <p className="text-base sm:text-lg text-gray-200 animate-fade-in text-center mb-6">
-            Reserva una llamada directamente en mi calendario o escríbeme a <a href="mailto:patricio@lanzaderaclientes.es" className="underline text-blue-300 hover:text-blue-100 transition">patricio@lanzaderaclientes.es</a>
-          </p>
-          <div className="w-full h-[600px] max-w-2xl rounded-xl overflow-hidden border border-white/10 bg-black/70">
-            <Cal
-              namespace="30min"
-              calLink="patriciowamba/30min"
-              style={{ width: "100%", height: "100%", overflow: "scroll" }}
-              config={{ layout: "month_view" }}
-            />
-          </div>
         </div>
       </section>
       {/* Footer */}

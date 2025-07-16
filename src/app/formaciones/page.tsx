@@ -4,9 +4,9 @@ import Link from "next/link";
 const formaciones = [
   {
     nombre: "Formación COMPLETA",
-    duracion: "6 meses",
-    precio: 1900,
-    precioTexto: "1.900€",
+    duracion: "12 meses",
+    precio: 1947,
+    precioTexto: "1.947€",
     resumen: "Formación completa donde aprenderás cómo vender de manera correcta IA a  negocios paso a paso, aunque empieces desde cero. Ideal para personas que quieren empezar un negocio online.",
     paraQuien: [
       "Persona que quiere empezar un negocio en línea y necesita aprender sobre ventas y operativa empresarial.",
@@ -15,16 +15,16 @@ const formaciones = [
     ],
     incluye: [
       "Acceso completo a toda la formación necesaria, incluyendo: Fiscalidad, ventas, fundamentos de una agencia, prospección, métricas de prospección en línea y formación en herramientas de Inteligencia Artificial.",
-      "6 de sesiones 1 a 1:",
-      "Una llamada de control todas las semanas (durante 6 meses)",
+      "5 videollamadas de control y ayudas:",
+      "Una llamada de control todas las semanas (durante 12 meses)",
       "Contacto directo por Whatsapp con Patricio para resolver dudas."
     ]
   },
   {
     nombre: "Formación ÉLITE",
-    duracion: "5 meses",
-    precio: 2470,
-    precioTexto: "2.470€",
+    duracion: "12 meses",
+    precio: 2477,
+    precioTexto: "2.447€",
     resumen: "Formación completa donde aprenderás cómo vender de manera correcta IA a  negocios paso a paso, aunque empieces desde cero. Ideal para personas que quieren empezar un negocio online.",
     paraQuien: [
       "Persona que quiere empezar un negocio en línea y necesita aprender sobre ventas y operativa empresarial.",
@@ -34,8 +34,8 @@ const formaciones = [
     incluye: [
       "Acceso directo a personal experto en IA.",
       "Acceso completo a toda la formación necesaria, incluyendo: Fiscalidad, ventas, fundamentos de una agencia, prospección, métricas de prospección en línea y formación en herramientas de Inteligencia Artificial.",
-      "6 de sesiones 1 a 1:",
-      "Una llamada de control todas las semanas (durante 5 meses)",
+      "7 videollamadas de control y ayudas:",
+      "Una llamada de control todas las semanas (durante 12 meses)",
       "Contacto directo por Whatsapp con Patricio para resolver dudas."
     ]
   },
@@ -53,7 +53,7 @@ const formaciones = [
     incluye: [
       "Acceso directo a personal experto en IA.",
       "Acceso completo a toda la formación necesaria, incluyendo: Fiscalidad, ventas, fundamentos de una agencia, prospección, métricas de prospección en línea y formación en herramientas de Inteligencia Artificial.",
-      "7 de sesiones 1 a 1:",
+      "15 videollamadas de control y ayudas:",
       "Una llamada de control todas las semanas (durante 12 meses)",
       "Contacto directo por Whatsapp con Patricio para resolver dudas."
     ]
