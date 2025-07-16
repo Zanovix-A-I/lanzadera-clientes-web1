@@ -4,7 +4,6 @@ import AnimatedParticlesBackground from "./AnimatedParticlesBackground";
 
 export default function Home() {
   const aboutRef = useRef<HTMLDivElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
 
   // Cal.com API init
   useEffect(() => {
