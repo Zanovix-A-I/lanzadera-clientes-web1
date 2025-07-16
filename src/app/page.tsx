@@ -24,7 +24,7 @@ export default function Home() {
         <p className="text-base sm:text-lg text-gray-200 max-w-xl mb-8 animate-fade-in-delay">
           Aprende inteligencia artificial conmigo.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
           <a
             href="/patricio"
             className="creative-btn bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 hover:from-yellow-500 hover:to-pink-600 text-white font-extrabold text-xl px-10 py-5 rounded-full shadow-2xl transition-all animate-pop-in text-center border-4 border-white drop-shadow-lg"
@@ -52,11 +52,6 @@ export default function Home() {
         </div>
       </section>
       {/* Footer */}
-      <footer className="w-full text-center py-8 text-gray-500 text-sm">
-        <span>Copyright 2025 - LanzaderaClientes.ES - Todos los derechos reservados</span>
-        <span className="mx-2">|</span>
-        <span>Desarrollado por <a href="https://zanovix.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-white transition">zanovix.com</a></span>
-      </footer>
     </div>
   );
 }
