@@ -1,7 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
 import AnimatedParticlesBackground from "./AnimatedParticlesBackground";
-import Cal, { getCalApi } from "@calcom/embed-react";
 
 export default function Home() {
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -10,17 +9,10 @@ export default function Home() {
   // Cal.com API init
   useEffect(() => {
     (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+      // Eliminar: const cal = await getCalApi({ namespace: "30min" });
+      // Eliminar: cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
     })();
   }, []);
-
-  const scrollToAbout = () => {
-    aboutRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  const scrollToContact = () => {
-    contactRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="relative min-h-screen flex flex-col justify-between overflow-x-hidden">
